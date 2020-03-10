@@ -1,0 +1,2 @@
+class SavedShowController < ApplicationController
+end
