@@ -10,6 +10,7 @@ class ImdbApiStringRequest
         @search_string = search_params[:search_string]
     end
 
+    # parse search string into a URL for API request
     def create_url_string
         base_url = "https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&s="
 
@@ -18,10 +19,8 @@ class ImdbApiStringRequest
         @url="#{base_url}#{parsed_search_string}"
     end
 
+    # use search string to request shows from the API
     def get_shows
-        # uri = URI.parse(create_url_string)
-        # response = Net::HTTP.get_response(uri)
-        # p response.body
         url = URI(create_url_string)
 
         http = Net::HTTP.new(url.host, url.port)
@@ -36,14 +35,36 @@ class ImdbApiStringRequest
         p JSON.parse(response.read_body)
     end
 
+    # create an object for each show in format for front end and put in an array
     def create_show_objects
         api_response = get_shows["Search"]
         objects_array = api_response.map { |show| 
-            {imdbID: show["imdbID"], title: show["Title"], type: show["Type"], poster: show["Poster"], services: []} 
+            {imdbID: show["imdbID"], title: show["Title"], type: show["Type"], year: show["Year"], poster: show["Poster"]} 
         }
+        # cache_results(objects_array)
         p objects_array
     end
 
 
 
+
+
+
+
+
+
+# -------------cache for search results - doesn't work ------------
+
+    # add results to cache table?
+    def cache_results(results_objects)
+        new = results_objects.each { |result|
+            CachedShow.all.find_by(:imdbID == result[:imdbID]) ? nil : create_cache(result) }
+            # CachedShow.create(imdbID: result[:imdbID], title: result[:title], show_type: result[:type], year: result[:year], poster: result[:poster]) 
+        
+        p "complete"
+    end
+
+    def create_cache(result)
+        CachedShow.create(imdbID: result[:imdbID], title: result[:title], show_type: result[:type], year: result[:year], poster: result[:poster])
+    end
 end

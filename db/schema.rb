@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_151219) do
+ActiveRecord::Schema.define(version: 2020_03_11_172247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cached_shows", force: :cascade do |t|
+    t.string "imdbID"
+    t.string "title"
+    t.string "show_type"
+    t.string "poster"
+    t.text "plot"
+    t.string "genre"
+    t.string "imdbRating"
+    t.text "full_fetch_object"
+    t.string "year"
+  end
 
   create_table "genres", force: :cascade do |t|
     t.string "name"

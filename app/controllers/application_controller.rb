@@ -48,10 +48,28 @@ class ApplicationController < ActionController::API
 
 
     # ---------- API requests ------------
-# need to update for final object to return to front end - currently only returning all results
-    def search_shows
+    # create an API request, create show objects, pass into get_services function to do another API request to 
+    # retreive the services then update the objects and return objects to front end
+    def search_shows(params)
         request = ImdbApiStringRequest.new(params)
-        results = request.get_shows
-        render json: results
+        results = request.create_show_objects
+        shows = get_services(results_array)
+        p shows
+        # render json: shows
+    end
+
+    # iterate through shows and call fetch services
+    def get_services(results_array)
+        shows = results_array.map do |show|
+            fetch_services(show)
+        end
+        shows
+    end
+
+    # fetch services for each show from API, update show object with services objects and return
+    def fetch_services(show)
+        request = ServiceApiSearch.new(show[:imdbID])
+        services = request.create_service_objects
+        show[:services] => services
     end
 end
