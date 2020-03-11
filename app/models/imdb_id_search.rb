@@ -6,8 +6,8 @@ class ImdbIdSearch
 
     attr_reader :search_params
 
-    def initialize(:id)
-        @imdbID = :id
+    def initialize(id)
+        @imdbID = id
     end
 
     def create_url_string

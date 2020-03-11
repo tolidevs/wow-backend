@@ -50,10 +50,11 @@ class ApplicationController < ActionController::API
     # ---------- API requests ------------
     # create an API request, create show objects, pass into get_services function to do another API request to 
     # retreive the services then update the objects and return objects to front end
-    def search_shows(params)
+    # request params structure : {search_params: "string"}
+    def search_shows
         request = ImdbApiStringRequest.new(params)
         results = request.create_show_objects
-        shows = get_services(results_array)
+        shows = get_services(results)
         p shows
         # render json: shows
     end
@@ -70,6 +71,6 @@ class ApplicationController < ActionController::API
     def fetch_services(show)
         request = ServiceApiSearch.new(show[:imdbID])
         services = request.create_service_objects
-        show[:services] => services
+        show[:services] = services
     end
 end
