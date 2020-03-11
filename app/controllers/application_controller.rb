@@ -44,4 +44,14 @@ class ApplicationController < ActionController::API
     def authorized
         render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
     end
+
+
+
+    # ---------- API requests ------------
+# need to update for final object to return to front end - currently only returning all results
+    def search_shows
+        request = ImdbApiStringRequest.new(params)
+        results = request.get_shows
+        render json: results
+    end
 end
