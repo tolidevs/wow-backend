@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-    before_action :authorized
+    # before_action :authorized
 
     # secret from env file
     def secret
@@ -15,6 +15,7 @@ class ApplicationController < ActionController::API
         request.headers['Authorization']
     end
 
+    # check whether there is an authorization header in the request
     # take the token from the request headers, if there is a token decode it, otherwise return nil
     def decoded_token
         if auth_header
@@ -32,18 +33,18 @@ class ApplicationController < ActionController::API
     def current_user
         if decoded_token
             user_id = decoded_token[0]['user_id']
-            @user = User.find_by(id: id)
+            @user = User.find_by(id: user_id)
         end
     end
 
-    # is there a current user logged in?
-    def logged_in?
-        !!current_user
-    end
+    # # is there a current user logged in?
+    # def logged_in?
+    #     !!current_user
+    # end
 
-    def authorized
-        render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
-    end
+    # def authorized
+    #     render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+    # end
 
 
 
