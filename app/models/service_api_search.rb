@@ -27,14 +27,16 @@ class ServiceApiSearch
 
         response = http.request(request)
         p JSON.parse(response.read_body)
+        # working to here
     end
 
+    # get data from api and map services if it has them. remove last item which is trash
     def create_service_objects
-        services = get_services["collection"]["locations"]
-        objects_array = services.map { |service| 
-            {name: service["display_name"], url: service["url"]} 
-        }
-        p objects_array
+        services = get_services
+        services = services["collection"]["locations"]
+        services_array = services.map { |service|  {name: service["display_name"], url: service["url"]} } if services.length > 0
+        services_array.pop
+        p services_array
     end
 
 end
