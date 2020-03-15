@@ -56,22 +56,23 @@ class ApplicationController < ActionController::API
         request = ImdbApiStringRequest.new(params)
         results = request.create_show_objects
         shows = get_services(results)
-        p shows
-        # render json: shows
+        # p shows
+        render json: shows
     end
 
-    # iterate through shows and call fetch services
+    # iterate through shows and call fetch services 
     def get_services(results_array)
-        shows = results_array.map do |show|
-            fetch_services(show)
+        shows = results_array.map do |tv_show|
+            fetch_services(tv_show)
         end
         shows
     end
 
     # fetch services for each show from API, update show object with services objects and return
-    def fetch_services(show)
-        request = ServiceApiSearch.new(show[:imdbID])
+    def fetch_services(tv_show)
+        request = ServiceApiSearch.new(tv_show[:imdbID])
         services = request.create_service_objects
-        show[:services] = services
+        tv_show[:services] = services
+        tv_show
     end
 end

@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#profile'
   post '/signup', to: 'users#create'
 
+  post '/search', to: 'application#search_shows'
+
 end
