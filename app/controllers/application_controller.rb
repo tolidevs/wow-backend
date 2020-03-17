@@ -75,4 +75,10 @@ class ApplicationController < ActionController::API
         tv_show[:services] = services
         tv_show
     end
+
+    def get_show_details
+        request = ImdbIdSearch.new(params)
+        show_obj = request.create_show_object
+        render json: show_obj
+    end
 end

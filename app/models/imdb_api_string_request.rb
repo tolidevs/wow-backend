@@ -3,7 +3,6 @@ require 'open-uri'
 require 'json'
 
 class ImdbApiStringRequest
-
     attr_reader :search_params
 
     def initialize(search_params)

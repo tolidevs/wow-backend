@@ -4,10 +4,10 @@ require 'json'
 
 class ImdbIdSearch
 
-    attr_reader :search_params
+    attr_reader :id
 
-    def initialize(id)
-        @imdbID = id
+    def initialize(search_params)
+        @imdbID = search_params[:imdbID]
     end
 
     def create_url_string
@@ -29,14 +29,17 @@ class ImdbIdSearch
         p JSON.parse(response.read_body)
     end
 
-    # do something with data that comes back!
-    def create_show_objects
-        api_response = get_show
-        objects_array = api_response.map { |show| 
-            {imdbID: show["imdbID"], title: show["Title"], type: show["Type"], year: show["Year"], poster: show["Poster"], services: []} 
+    # get show, then create an object with its information
+    def create_show_object
+        show = get_show
+        show_object = { 
+            imdbID: show["imdbID"], 
+            plot: show["Plot"], 
+            genre: show["Genre"], 
+            imdbRating: show["imdbRating"]
         }
         # cache_results(objects_array)
-        p objects_array
+        p show_object
     end
 
 
