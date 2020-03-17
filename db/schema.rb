@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_213048) do
+ActiveRecord::Schema.define(version: 2020_03_17_224550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_03_17_213048) do
   create_table "saved_shows", force: :cascade do |t|
     t.string "imdbID"
     t.string "title"
-    t.string "type"
+    t.string "show_type"
     t.string "poster"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
