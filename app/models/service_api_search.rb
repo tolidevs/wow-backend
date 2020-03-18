@@ -36,7 +36,42 @@ class ServiceApiSearch
         services = services["collection"]["locations"]
         services_array = services.map { |service|  {name: service["display_name"], url: service["url"]} } if services.length > 0
         # services_array.pop
-        services_array
+        p services_array
     end
 
+    # get back data of services, parse them into uniform results that can be mapped in front end
+    def parse_service_objects
+        # services_array = create_service_objects
+        services_array = [{:name=> "iTunes", :url=> "https://itunes.apple.com/za/movie/casino-royale/id561902712"}, {:name=> "Google Play", :url=> "https://play.google.com/store/movies/details/Casino_Royale?gl=GB&hl=en&id=deA2fR9iFZw"}, {:name=> "iTunes", :url=> "https://itunes.apple.com/gb/movie/casino-royale/id561902712"}, {:name=> "IVA", :url=> nil }]
+
+        services = services_array.map { |service| 
+            name = service[:name].downcase
+            case 
+            when name.include?("iva")
+                p nil
+            when name.include?("netflix")
+                service[:name] = "Netflix"
+                p service
+            when name.include?("itunes")
+                service[:name]= "iTunes"
+                p service
+            when name.include?("amazon instant video")
+                p service
+            when name.include?("google play")
+                p service
+            when name.include?("disneyplus")
+                service[:name] = "DisneyPlus"
+                p service
+            else
+                service[:name] =  "other"
+                p service
+            end
+        }
+        p services.compact
+    end
+
+    # remove foreign services from iTunes & disney+
+    def remove_foreign_services
+        
+    end
 end

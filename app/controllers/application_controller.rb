@@ -71,11 +71,12 @@ class ApplicationController < ActionController::API
     # fetch services for each show from API, update show object with services objects and return
     def fetch_services(tv_show)
         request = ServiceApiSearch.new(tv_show[:imdbID])
-        services = request.create_service_objects
+        services = request.parse_service_objects
         tv_show[:services] = services
-        tv_show
+        p tv_show
     end
 
+    # fetch details from IMDB api to show in show page in front end
     def get_show_details
         request = ImdbIdSearch.new(params)
         show_obj = request.create_show_object
