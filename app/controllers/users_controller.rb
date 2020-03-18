@@ -19,7 +19,13 @@ class UsersController < ApplicationController
       end
     end
 
-    
+    def get_saved_shows
+      @user = User.all.find_by(id: params[:user_id])
+      if @user
+        user_shows = SavedShow.all.select{|show| show.user_id == @user.id}
+        render json: user_shows
+      end
+    end
  
     private
 
