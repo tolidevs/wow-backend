@@ -55,8 +55,8 @@ class ServiceApiSearch
             when name.include?("itunes")
                 service[:name]= "iTunes"
                 p service
-            when name.include?("amazon instant video")
-                p service
+            when name.include?("amazon")
+                p service[:name] = "Amazon"
             when name.include?("google play")
                 p service
             when name.include?("disneyplus")
