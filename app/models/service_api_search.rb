@@ -35,16 +35,16 @@ class ServiceApiSearch
         services = get_services
         services = services["collection"]["locations"]
         services_array = services.map { |service|  {name: service["display_name"], url: service["url"]} } if services.length > 0
-        # services_array.pop
         p services_array
     end
 
     # get back data of services, parse them into uniform results that can be mapped in front end
     def parse_service_objects
-        # services_array = create_service_objects
-        services_array = [{:name=> "iTunes", :url=> "https://itunes.apple.com/za/movie/casino-royale/id561902712"}, {:name=> "Google Play", :url=> "https://play.google.com/store/movies/details/Casino_Royale?gl=GB&hl=en&id=deA2fR9iFZw"}, {:name=> "iTunes", :url=> "https://itunes.apple.com/gb/movie/casino-royale/id561902712"}, {:name=> "IVA", :url=> nil }]
+        services_array = create_service_objects
+        # services_array = [{:name=> "iTunes", :url=> "https://itunes.apple.com/za/movie/casino-royale/id561902712"}, {:name=> "Google Play", :url=> "https://play.google.com/store/movies/details/Casino_Royale?gl=GB&hl=en&id=deA2fR9iFZw"}, {:name=> "iTunes", :url=> "https://itunes.apple.com/gb/movie/casino-royale/id561902712"}, {:name=> "IVA", :url=> nil }]
 
-        services = services_array.map { |service| 
+        services = if services_array
+            services_array.map { |service| 
             name = service[:name].downcase
             case 
             when name.include?("iva")
@@ -57,6 +57,7 @@ class ServiceApiSearch
                 p service
             when name.include?("amazon")
                 p service[:name] = "Amazon"
+                p service
             when name.include?("google play")
                 p service
             when name.include?("disneyplus")
@@ -67,7 +68,13 @@ class ServiceApiSearch
                 p service
             end
         }
-        p services.compact
+        end 
+# tidy up remove nil and duplicates
+        if services 
+            services = services.compact
+            services = services.uniq{ |service| service[:name]}
+        end
+        p services
     end
 
     # remove foreign services from iTunes & disney+
