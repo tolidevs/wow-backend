@@ -11,8 +11,8 @@ class SavedShowsController < ApplicationController
         end
     end
 
-    def delete
-        saved_show = SavedShow.all.find{|show| show.user_id == params[:user] && show.imdbID == params[:imdbID]}
+    def destroy
+        saved_show = SavedShow.all.find_by(id: params[:id])
         saved_show.delete
         render json: {message: "#{saved_show.title} removed from saved list"}
     end
