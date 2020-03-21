@@ -38,7 +38,7 @@ class ImdbApiStringRequest
     def create_show_objects
         api_response = get_shows["Search"]
         objects_array = api_response.map { |show| 
-            {imdbID: show["imdbID"], title: show["Title"], type: show["Type"], year: show["Year"], poster: show["Poster"]} 
+            {imdbID: show["imdbID"], title: show["Title"], show_type: show["Type"], year: show["Year"], poster: show["Poster"]} 
         }
         # cache_results(objects_array)
         p objects_array

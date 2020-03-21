@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   post '/search', to: 'application#search_shows'
   post '/show', to: 'application#get_show_details'
+  post '/get_services', to: 'application#get_saved_services'
 
 end

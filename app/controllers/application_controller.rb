@@ -60,6 +60,12 @@ class ApplicationController < ActionController::API
         render json: shows
     end
 
+    # format params for fetch on saved services pass to get services function then render json back to front end
+    def get_saved_services
+        array = params[:array]
+        shows = get_services(array)
+        render json: shows
+    end
     # iterate through shows and call fetch services 
     def get_services(results_array)
         shows = results_array.map do |tv_show|
