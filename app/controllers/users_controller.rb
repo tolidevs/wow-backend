@@ -26,6 +26,14 @@ class UsersController < ApplicationController
         render json: user_shows
       end
     end
+
+    def get_subscriptions
+      @user = User.all.find_by(id: params[:user_id])
+      if @user
+        user_subscriptions = Subscription.all.select{|subscription| subscription.user_id == @user.id}
+        render json: user_subscriptions
+      end
+    end
  
     private
 
