@@ -1,0 +1,3 @@
+class CachedShow < ApplicationRecord
+
+end

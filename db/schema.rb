@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_151219) do
+ActiveRecord::Schema.define(version: 2020_03_17_224550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cached_shows", force: :cascade do |t|
+    t.string "imdbID"
+    t.string "title"
+    t.string "show_type"
+    t.string "poster"
+    t.text "plot"
+    t.string "genre"
+    t.string "imdbRating"
+    t.text "full_fetch_object"
+    t.string "year"
+  end
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
@@ -24,10 +36,13 @@ ActiveRecord::Schema.define(version: 2020_03_10_151219) do
   create_table "saved_shows", force: :cascade do |t|
     t.string "imdbID"
     t.string "title"
-    t.string "type"
+    t.string "show_type"
     t.string "poster"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "year"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_saved_shows_on_user_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -62,6 +77,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_151219) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "saved_shows", "users"
   add_foreign_key "show_genres", "genres"
   add_foreign_key "show_genres", "saved_shows"
   add_foreign_key "subscriptions", "services"
