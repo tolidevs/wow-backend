@@ -1,24 +1,34 @@
-# README
+What’s on Where App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+What’s on Where is a web app that lets you search for a show or film and find out which streaming services it is currently available on.
+Users are able to create an account and log in. User details are saved in brower session.
+Logged in users can save shows/movies to their watchlist. If a user is not logged in and tries to save a show they will be prompted to log in or continue without saving.
+Users can also set their current subscriptions, and filter their watchlist by any individual subscription or all of their current subscriptions.
 
-Things you may want to cover:
+APIs
+Movie Database - https://rapidapi.com/rapidapi/api/movie-database-imdb-alternative
 
-* Ruby version
+Holds IMDB ids and details of shows and movies.
+Can search by string of words and returns full & partial matches
 
-* System dependencies
+Utelly - https://rapidapi.com/utelly/api/utelly
 
-* Configuration
+Has data about which shows are available on which services
+Can specify region for your search (eg UK)
+Can search by IMDB id (more effective than string search)
 
-* Database creation
+Languages and Frameworks
 
-* Database initialization
+Backend:
+Ruby
+Ruby on Rails
+PostgreSQL
 
-* How to run the test suite
+Frontend:
+JavaScript
+React
+Redux
+Semantic UI
+CSS
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
