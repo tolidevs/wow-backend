@@ -47,8 +47,6 @@ class ServiceApiSearch
             services_array.map { |service| 
             name = service[:name].downcase
             case 
-            when name.include?("iva")
-                p nil
             when name.include?("netflix")
                 service[:name] = "Netflix"
                 p service
@@ -63,6 +61,8 @@ class ServiceApiSearch
             when name.include?("disneyplus")
                 service[:name] = "DisneyPlus"
                 p service
+            when name == "iva"
+                p nil
             else
                 service[:name] =  "other"
                 p service
