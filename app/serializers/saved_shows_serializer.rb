@@ -1,3 +1,3 @@
-class SavedShowSerializer < ActiveModel::Serializer
+class SavedShowsSerializer < ActiveModel::Serializer
   attributes :id, :user_id, :imdbID, :title, :show_type, :year, :poster
 end
