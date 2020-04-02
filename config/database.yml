@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: wow_backend_production
-  username: wow_backend
-  password: <%= ENV['WOW_BACKEND_DATABASE_PASSWORD'] %>
+  # database: wow_backend_production
+  # username: wow_backend
+  # password: <%= ENV['WOW_BACKEND_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
