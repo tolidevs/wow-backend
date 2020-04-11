@@ -1,4 +1,6 @@
-What’s on Where App
+What’s on Where App - https://whats-on-where.netlify.com
+
+front-end repo: https://github.com/tolidevs/wow-frontend
 
 What’s on Where is a web app that lets you search for a show or film and find out which streaming services it is currently available on.
 Users are able to create an account and log in. User details are saved in brower session.
@@ -23,11 +25,13 @@ Backend:
 Ruby
 Ruby on Rails
 PostgreSQL
+BCrypt
 
 Frontend:
 JavaScript
-React
-Redux
+React.js
+React-router
+Redux.js
 Semantic UI
 CSS
 
