@@ -55,7 +55,7 @@ class ApplicationController < ActionController::API
     def search_shows
         request = ImdbApiStringRequest.new(params)
         results = request.create_show_objects
-        shows = get_services(results)
+        shows = get_services(results.first(5))
         # p shows
         render json: shows
     end

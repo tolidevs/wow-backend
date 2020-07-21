@@ -41,6 +41,10 @@ class ImdbApiStringRequest
             {imdbID: show["imdbID"], title: show["Title"], show_type: show["Type"], year: show["Year"], poster: show["Poster"]} 
         }
         # cache_results(objects_array)
+
+        # filter out game objects
+        objects_array = objects_array.filter{ |show| show[:show_type] != "game" }
+
         p objects_array
     end
 
