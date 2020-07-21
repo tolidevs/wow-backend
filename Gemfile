@@ -45,3 +45,12 @@ gem "jwt", "~> 2.2"
 gem "active_model_serializers", "~> 0.10.10"
 
 gem "faker", "~> 2.10"
+
+# update gems to fix dependency issues
+gem "activesupport", ">= 6.0.3.1"
+
+gem "actionpack", ">= 6.0.3.2"
+
+gem "activestorage", ">= 6.0.3.1"
+
+gem "actionview", ">= 6.0.3.1"
