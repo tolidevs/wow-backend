@@ -11,7 +11,7 @@ class ServiceApiSearch
     end
 
     def create_url_string
-        @url="https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=UK&source_id=#{@imdbID}&source=imdb"
+        @url="https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?source_id=#{@imdbID}&source=imdb"
     end
 
     def get_services
@@ -33,8 +33,19 @@ class ServiceApiSearch
     # get data from api and map services if it has them
     def create_service_objects
         services = get_services
-        services = services["collection"]["locations"]
-        services_array = services.map { |service|  {name: service["display_name"], url: service["url"]} } if services.length > 0
+        # if there are locations for the services set services otherwise set to nill
+        if services["collection"]["locations"] 
+            services = services["collection"]["locations"]
+        else
+            services = nil
+        end
+        
+        # if there are services map the name and URL otherwise return nil
+        if services
+            services_array = services.map { |service|  {name: service["display_name"], url: service["url"]} } 
+        else
+            services_array = nil
+        end
         p services_array
     end
 
@@ -43,6 +54,7 @@ class ServiceApiSearch
         services_array = create_service_objects
         # services_array = [{:name=> "iTunes", :url=> "https://itunes.apple.com/za/movie/casino-royale/id561902712"}, {:name=> "Google Play", :url=> "https://play.google.com/store/movies/details/Casino_Royale?gl=GB&hl=en&id=deA2fR9iFZw"}, {:name=> "iTunes", :url=> "https://itunes.apple.com/gb/movie/casino-royale/id561902712"}, {:name=> "IVA", :url=> nil }]
 
+        # if there are services (not nil)
         services = if services_array
             services_array.map { |service| 
             name = service[:name].downcase
@@ -58,7 +70,7 @@ class ServiceApiSearch
                 p service
             when name.include?("google play")
                 p service
-            when name.include?("disneyplus")
+            when name.include?("disney")
                 service[:name] = "DisneyPlus"
                 p service
             when name == "iva"
